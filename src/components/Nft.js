@@ -60,8 +60,6 @@ const Nft = ({ holding, owner }) => {
     );
   }
 
-  doContractCall({});
-
   return (
     <div className="group overflow-hidden text-ellipsis">
       <img src={imageUrl} alt="nft" className="h-full w-full" />
