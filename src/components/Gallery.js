@@ -16,7 +16,7 @@ export function Gallery() {
     init();
   }, []);
 
-  if (!holdings) return <>Loading...</>;
+  if (!holdings) return <span className="text-white text-lg">Loading...</span>;
 
   return (
     <>
@@ -26,7 +26,7 @@ export function Gallery() {
       >
         Disconnect Wallet
       </button>
-      <div className="grid gap-8 grid-cols-3 w-2/3 mb-32">
+      <div className="mx-4 grid gap-4 grid-cols-2 sm:grid-cols-3 md:mx-8 md:gap-8 mb-32">
         {holdings.map((h) => (
           <div key={h.tx_id} className="GridItem p-1 bg-purple-400 rounded-lg">
             <div className="relative aspect-square rounded-md overflow-hidden">

@@ -30,9 +30,9 @@ export function sanitizeUri(tokenUri, id) {
   return url;
 }
 
-export async function getHoldings(
-  principal = "SP17YZQB1228EK9MPHQXA8GC4G3HVWZ66X7VRPMAX"
-) {
+export async function getHoldings(principal) {
+  // uncomment to override/stalk other addresses
+  principal = "SP1V1ZVKMWWHX8CEGBP9FQBQ3AKREMBDTHBF1E7Z5";
   return (
     await nftApi.getNftHoldings({
       principal,
@@ -45,12 +45,7 @@ export async function getHoldings(
     }));
 }
 
-export async function tryReadOnly(
-  address,
-  name,
-  value,
-  sender = "SP10GH0ED2YA6AN2BT94N75KMVJAC3DGARD5W4HQM"
-) {
+export async function tryReadOnly(address, name, value, sender) {
   try {
     return (
       await callReadOnlyFunction({
@@ -96,9 +91,7 @@ export async function requestUrl(url) {
   }
 }
 
-export function transfer(holding, doContractCall, onSuccess) {
-  const sender = userSession.loadUserData().profile.stxAddress.mainnet;
-
+export function transfer(holding, sender, doContractCall, onSuccess) {
   const recipient = window.prompt("Enter recipient address", "SP...");
   if (!recipient) return; // user canceled prompt
 

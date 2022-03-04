@@ -1,6 +1,7 @@
 import { useConnect } from "@stacks/connect-react";
 import { useEffect, useState } from "react";
 import { getImageUrl, getTokenUri, requestUrl, transfer } from "../helpers";
+import { userSession } from "../session";
 
 const Nft = ({ holding }) => {
   const [progress, setProgress] = useState(0.2); // 0 to 1
@@ -10,10 +11,12 @@ const Nft = ({ holding }) => {
 
   const { doContractCall } = useConnect();
 
+  const owner = userSession.loadUserData().profile.stxAddress.mainnet;
+
   useEffect(() => {
     async function init() {
       setProgress(0.4);
-      const tokenUri = await getTokenUri(holding);
+      const tokenUri = await getTokenUri(holding, owner);
       setProgress(0.7);
       if (!tokenUri) {
         return setError("Does not conform to .nft-trait");
@@ -30,7 +33,7 @@ const Nft = ({ holding }) => {
     }
 
     init();
-  }, [holding]);
+  }, [holding, owner]);
 
   if (error) {
     return (
@@ -64,7 +67,7 @@ const Nft = ({ holding }) => {
 
   return (
     <div className="group overflow-hidden text-ellipsis">
-      <img src={imageUrl} alt="nft" />
+      <img src={imageUrl} alt="nft" className="h-full w-full" />
       {/* {!imageUrl} */}
       <div className="absolute inset-0 p-1 invisible group-hover:visible">
         <div className="overflow-hidden text-ellipsis block">
@@ -77,7 +80,7 @@ const Nft = ({ holding }) => {
           </button>
           <button
             className="block text-white rounded-sm text-md px-1 bg-purple-900/80"
-            onClick={() => transfer(holding, doContractCall)}
+            onClick={() => transfer(holding, owner, doContractCall)}
             title="Transfer NFT to different principal"
           >
             Transfer →
