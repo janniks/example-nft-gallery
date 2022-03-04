@@ -8,7 +8,6 @@ import {
   validateStacksAddress,
 } from "@stacks/transactions";
 import { StacksMainnet } from "@stacks/network";
-import { userSession } from "./session";
 
 const nftApi = new NonFungibleTokensApi();
 
@@ -32,7 +31,7 @@ export function sanitizeUri(tokenUri, id) {
 
 export async function getHoldings(principal) {
   // uncomment to override/stalk other addresses
-  principal = "SP1V1ZVKMWWHX8CEGBP9FQBQ3AKREMBDTHBF1E7Z5";
+  // principal = "SP1V1ZVKMWWHX8CEGBP9FQBQ3AKREMBDTHBF1E7Z5";
   return (
     await nftApi.getNftHoldings({
       principal,

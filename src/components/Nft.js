@@ -1,17 +1,14 @@
 import { useConnect } from "@stacks/connect-react";
 import { useEffect, useState } from "react";
 import { getImageUrl, getTokenUri, requestUrl, transfer } from "../helpers";
-import { userSession } from "../session";
 
-const Nft = ({ holding }) => {
+const Nft = ({ holding, owner }) => {
   const [progress, setProgress] = useState(0.2); // 0 to 1
   const [error, setError] = useState(false);
   const [imageUrl, setImageUrl] = useState(false);
   const [imageReceived, setImageReceived] = useState(false);
 
   const { doContractCall } = useConnect();
-
-  const owner = userSession.loadUserData().profile.stxAddress.mainnet;
 
   useEffect(() => {
     async function init() {
