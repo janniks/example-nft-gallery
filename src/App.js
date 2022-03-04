@@ -1,6 +1,6 @@
 import "./App.css";
-import { ConnectWallet } from "./component/ConnectWallet";
-import { Gallery } from "./component/Gallery";
+import { ConnectWallet } from "./components/ConnectWallet";
+import { Gallery } from "./components/Gallery";
 import { randomEmoji } from "./helpers";
 import { userSession } from "./session";
 
