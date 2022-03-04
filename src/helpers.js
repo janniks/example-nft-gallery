@@ -12,7 +12,7 @@ import { StacksMainnet } from "@stacks/network";
 const nftApi = new NonFungibleTokensApi();
 
 const emojis = [
-  ..."😜😍🥰😎🥳🥵😳🤯😱😈👾👽💩👻🎃✌️👑🐶🐣🐠🌎🌍🌏🪐⭐️🍓🚗🚌🚀",
+  ..."😜😍🥰😎🥳🥵😳🤯😱😈👾👽💩👻🎃✌👑🐶🐣🐠🌎🌍🌏🪐⭐🍓🚗🚌🚀",
 ];
 export function randomEmoji() {
   return emojis[Math.floor(Math.random() * emojis.length)];
