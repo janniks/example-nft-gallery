@@ -42,24 +42,76 @@ div.GridItem {
     0 20px 20px rgb(0 0 0 / 20%), 0 40px 40px rgb(0 0 0 / 15%);
 }
 
+/* Partially based on argyleink's progress https://github.com/argyleink/gui-challenges/blob/main/LICENSE */
 progress {
+  border: none;
+  position: relative;
+  overflow: hidden;
   border-radius: 8px;
   height: 16px;
   width: 100%;
-  background-color: rgb(168 85 247);
+  appearance: none;
+
+  --_pback: hsl(271, 91%, 65%);
+  --_pback-size: 16px;
+  --_pfill: hsl(273, 67%, 39%);
+  --_indeterminate-track: linear-gradient(
+    to right,
+    var(--_pback) 45%,
+    var(--_pfill) 0%,
+    var(--_pfill) 55%,
+    var(--_pback) 0%
+  );
+  --_indeterminate-track-size: 225% 100%;
+  --_indeterminate-track-animation: progress-loading 3s infinite ease;
+
+  background-color: var(--_pback);
 }
-progress::-webkit-progress-bar {
-  background-color: rgb(168 85 247);
+
+progress[value]::-webkit-progress-bar {
+  background-color: var(--_pback);
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: var(--_pfill);
+  transition: inline-size 3s ease-out;
+}
+
+progress[value]::-webkit-progress-inner-element {
   border-radius: 8px;
 }
-progress::-webkit-progress-value {
-  background-color: rgb(107 33 168);
-  border-radius: 8px;
-  -webkit-transition: width 3s ease;
-  -moz-transition: width 3s ease;
-  -o-transition: width 3s ease;
-  transition: width 3s ease;
+
+progress[value]::-moz-progress-bar {
+  background-color: var(--_pfill);
 }
-progress::-moz-progress-bar {
-  /* style rules */
+
+progress:indeterminate::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+  background: var(--_indeterminate-track);
+  background-size: var(--_indeterminate-track-size);
+  background-position: right;
+  animation: var(--_indeterminate-track-animation);
+}
+
+progress:indeterminate::-webkit-progress-bar {
+  border-radius: 8px;
+  background: var(--_indeterminate-track);
+  background-size: var(--_indeterminate-track-size);
+  background-position: right;
+  animation: var(--_indeterminate-track-animation);
+}
+
+progress:indeterminate::-moz-progress-bar {
+  background: var(--_indeterminate-track);
+  background-size: var(--_indeterminate-track-size);
+  background-position: right;
+  animation: var(--_indeterminate-track-animation);
+}
+
+@keyframes progress-loading {
+  50% {
+    background-position: left;
+  }
 }

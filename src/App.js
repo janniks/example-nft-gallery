@@ -5,7 +5,9 @@ import { randomEmoji } from "./helpers";
 import { userSession } from "./session";
 
 function App() {
-  const isSignedIn = userSession.isUserSignedIn();
+  const queryParams = new URLSearchParams(window.location.search);
+  const stalk = queryParams.get("owner");
+  const isSignedIn = stalk || userSession.isUserSignedIn();
 
   return (
     <>
@@ -21,7 +23,7 @@ function App() {
             </h1>
           </a>
         </div>
-        {isSignedIn ? <Gallery /> : <ConnectWallet />}
+        {isSignedIn ? <Gallery stalk={stalk} /> : <ConnectWallet />}
       </div>
     </>
   );

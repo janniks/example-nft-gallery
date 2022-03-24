@@ -3,11 +3,8 @@ import { getHoldings } from "../helpers";
 import { userSession } from "../session";
 import Nft from "./Nft";
 
-export function Gallery() {
+export function Gallery({ stalk }) {
   const [holdings, setHoldings] = useState(false);
-
-  const queryParams = new URLSearchParams(window.location.search);
-  const stalk = queryParams.get("owner");
   const owner = stalk || userSession.loadUserData().profile.stxAddress.mainnet;
 
   useEffect(() => {
