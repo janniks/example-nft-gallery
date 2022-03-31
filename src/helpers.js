@@ -29,6 +29,16 @@ export function sanitizeUri(tokenUri, id) {
   return url;
 }
 
+export function overrideUri(uri, id, name) {
+  // custom rules for specific collections
+  switch (name) {
+    case "bitcowboys":
+      return `${uri}/${id}.json`;
+    default:
+      return uri;
+  }
+}
+
 export async function getHoldings(principal) {
   // uncomment to override/stalk other addresses
   // principal = "SP1V1ZVKMWWHX8CEGBP9FQBQ3AKREMBDTHBF1E7Z5";
@@ -70,11 +80,14 @@ export async function fetchImageUrl(url) {
   return response.image || response.imageUrl;
 }
 
-export async function getImageUrl(tokenUri, value) {
+export async function getImageUrl(tokenUri, holding) {
   try {
+    const name = holding.asset_identifier.split("::")[1];
     return sanitizeUri(
-      await fetchImageUrl(sanitizeUri(tokenUri, value)),
-      value
+      await fetchImageUrl(
+        overrideUri(sanitizeUri(tokenUri, holding.value), holding.value, name)
+      ),
+      holding.value
     );
   } catch (e) {
     return false;

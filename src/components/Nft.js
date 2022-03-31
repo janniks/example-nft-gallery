@@ -21,7 +21,7 @@ const Nft = ({ holding, owner }) => {
         return setError("Does not conform to .nft-trait");
       }
 
-      const imageUrl = await getImageUrl(tokenUri, holding.value);
+      const imageUrl = await getImageUrl(tokenUri, holding);
       setProgress(0.9);
       if (!imageUrl) {
         return setError("No standardized image available");
