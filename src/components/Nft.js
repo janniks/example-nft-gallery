@@ -10,6 +10,8 @@ const Nft = ({ holding, owner }) => {
 
   const { doContractCall } = useConnect();
 
+  console.log("holding", holding);
+
   useEffect(() => {
     async function init() {
       setProgress(0.4);
@@ -34,8 +36,27 @@ const Nft = ({ holding, owner }) => {
 
   if (error) {
     return (
-      <div className="h-full mx-6 flex items-center justify-center">
+      <div className="group h-full mx-6 flex items-center justify-center">
         <code className="text-center">{error}</code>
+        <div className="absolute inset-0 bottom-0 p-1 invisible group-hover:visible">
+          <div className="overflow-hidden text-ellipsis block">
+            <a
+              className="mb-1 block text-white rounded-sm text-md px-1 bg-purple-900/80"
+              href={`https://explorer.stacks.co/txid/${holding.tx_id}`}
+              title="Open transaction in Stacks explorer"
+            >
+              Inspect in explorer ↗
+            </a>
+            <div className="mb-1 block text-white rounded-sm text-md px-1 bg-purple-900/80">
+              <p>
+                name: <code>{holding.asset_identifier.split("::")[1]}</code>
+              </p>
+              <p>
+                value: <code>{holding.value}</code>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -63,7 +84,6 @@ const Nft = ({ holding, owner }) => {
   return (
     <div className="group overflow-hidden text-ellipsis">
       <img src={imageUrl} alt="nft" className="h-full w-full" />
-      {/* {!imageUrl} */}
       <div className="absolute inset-0 p-1 invisible group-hover:visible">
         <div className="overflow-hidden text-ellipsis block">
           <button
