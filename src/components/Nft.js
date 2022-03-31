@@ -43,6 +43,8 @@ const Nft = ({ holding, owner }) => {
             <a
               className="mb-1 block text-white rounded-sm text-md px-1 bg-purple-900/80"
               href={`https://explorer.stacks.co/txid/${holding.tx_id}`}
+              rel="noreferrer"
+              target="_blank"
               title="Open transaction in Stacks explorer"
             >
               Inspect in explorer ↗
